@@ -20,15 +20,15 @@ The base endpoints are:
 | LOAD   | http://url:port/                      | To reload data from database file;                                                                                 |
 | DUMP   | http://url:port/                      | To dump everything from in-memmory data into a json.                                                               |
 
-To extend, is just a matter of add a new HTTP VERB and implement its response. 
+To extend, is just a matter of add a new HTTP VERB and implement its response.
 
 ### JSON-based hierarchical key/value data engine
 
 On [data.go](data.go) we describe and define the data engine enveloped with the **DataBase** struct, that, once initialized, may be used to perform all operations over all data. These operations are:
 - **DataBase.Init(`database name` as string)** To **start** a database, named as `database name` using `databasename.JSONdb` as  file for persistation in JSON format;
-- **DataBase.Set(`table name` as string, `field` as string, `value` as string)** To **set** a data value, hierarchically, given a `table` and a `field`; 
+- **DataBase.Set(`table name` as string, `field` as string, `value` as string)** To **set** a data value, hierarchically, given a `table` and a `field`;
 - **DataBase.Get(`table name` as string, `field` as string)** To **get** a data value, hierarchically, given a `table` and a `field`;
-- **DataBase.Del(`table name` as string, `field` as string)** To **remove** a data value, hierarchically, given a `table` and a `field`; 
+- **DataBase.Del(`table name` as string, `field` as string)** To **remove** a data value, hierarchically, given a `table` and a `field`;
 - **DataBase.Dump()** To **dump** the whole database;
 - **DataBase.Load()** To **load** the data from database file defined on **Init**;
 - **DataBase.Store()** To **store** the data into the database file defined on **Init**;
@@ -45,6 +45,8 @@ Usage examples for [data.go](data.go) itself:
  fmt.Println(d.Dump())
  d.Store()
 ```
+
+A watchdog timer, defined on both [ops.go](ops.go) and [state.go](state.go), saves the data file on the disk if there is any modification when it's triggered.
 
 ### Some usage examples
 
